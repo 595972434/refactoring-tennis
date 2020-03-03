@@ -23,51 +23,67 @@ public class TennisGame1 implements TennisGame {
 
     public String getScore() {
         StringBuilder score = new StringBuilder();
-        int tempScore;
         if (player1Score == player2Score) {
-            switch (player1Score) {
+            return bulidEqualScore();
+        } else if (player1Score >= 4 || player2Score >= 4) {
+            return buildUpToFourScore();
+        } else {
+            return buildUnderThreeScore(score);
+        }
+    }
+
+    private String buildUnderThreeScore(StringBuilder score) {
+        int tempScore;
+        for (int i = 1; i < 3; i++) {
+            if (i == 1) tempScore = player1Score;
+            else {
+                score.append("-");
+                tempScore = player2Score;
+            }
+            switch (tempScore) {
                 case 0:
-                    score = new StringBuilder("Love-All");
+                    score.append("Love");
                     break;
                 case 1:
-                    score = new StringBuilder("Fifteen-All");
+                    score.append("Fifteen");
                     break;
                 case 2:
-                    score = new StringBuilder("Thirty-All");
+                    score.append("Thirty");
                     break;
-                default:
-                    score = new StringBuilder("Deuce");
+                case 3:
+                    score.append("Forty");
                     break;
+            }
+        }
+        return score.toString();
+    }
 
-            }
-        } else if (player1Score >= 4 || player2Score >= 4) {
-            int minusResult = player1Score - player2Score;
-            if (minusResult == 1) score = new StringBuilder("Advantage player1");
-            else if (minusResult == -1) score = new StringBuilder("Advantage player2");
-            else if (minusResult >= 2) score = new StringBuilder("Win for player1");
-            else score = new StringBuilder("Win for player2");
-        } else {
-            for (int i = 1; i < 3; i++) {
-                if (i == 1) tempScore = player1Score;
-                else {
-                    score.append("-");
-                    tempScore = player2Score;
-                }
-                switch (tempScore) {
-                    case 0:
-                        score.append("Love");
-                        break;
-                    case 1:
-                        score.append("Fifteen");
-                        break;
-                    case 2:
-                        score.append("Thirty");
-                        break;
-                    case 3:
-                        score.append("Forty");
-                        break;
-                }
-            }
+    private String buildUpToFourScore() {
+        StringBuilder score;
+        int minusResult = player1Score - player2Score;
+        if (minusResult == 1) score = new StringBuilder("Advantage player1");
+        else if (minusResult == -1) score = new StringBuilder("Advantage player2");
+        else if (minusResult >= 2) score = new StringBuilder("Win for player1");
+        else score = new StringBuilder("Win for player2");
+        return score.toString();
+    }
+
+    private String bulidEqualScore() {
+        StringBuilder score;
+        switch (player1Score) {
+            case 0:
+                score = new StringBuilder("Love-All");
+                break;
+            case 1:
+                score = new StringBuilder("Fifteen-All");
+                break;
+            case 2:
+                score = new StringBuilder("Thirty-All");
+                break;
+            default:
+                score = new StringBuilder("Deuce");
+                break;
+
         }
         return score.toString();
     }
