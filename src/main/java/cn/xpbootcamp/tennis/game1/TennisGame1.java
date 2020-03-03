@@ -22,17 +22,25 @@ public class TennisGame1 implements TennisGame {
     }
 
     public String getScore() {
-        StringBuilder score = new StringBuilder();
-        if (player1Score == player2Score) {
-            return bulidEqualScore();
-        } else if (player1Score >= 4 || player2Score >= 4) {
+        if (isEqualScore()) {
+            return buildEqualScore();
+        } else if (isUpToFourScore()) {
             return buildUpToFourScore();
         } else {
-            return buildUnderThreeScore(score);
+            return buildUnderThreeScore();
         }
     }
 
-    private String buildUnderThreeScore(StringBuilder score) {
+    private boolean isUpToFourScore() {
+        return player1Score >= 4 || player2Score >= 4;
+    }
+
+    private boolean isEqualScore() {
+        return player1Score == player2Score;
+    }
+
+    private String buildUnderThreeScore() {
+        StringBuilder score = new StringBuilder();
         int tempScore;
         for (int i = 1; i < 3; i++) {
             if (i == 1) tempScore = player1Score;
@@ -68,7 +76,7 @@ public class TennisGame1 implements TennisGame {
         return score.toString();
     }
 
-    private String bulidEqualScore() {
+    private String buildEqualScore() {
         StringBuilder score;
         switch (player1Score) {
             case 0:
