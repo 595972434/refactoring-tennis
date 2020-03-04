@@ -6,6 +6,7 @@ public class TennisGame1 implements TennisGame {
 
     private int player1Score = 0;
     private int player2Score = 0;
+    private String[] scoreArray = new String[]{"Love", "Fifteen", "Thirty", "Forty"};
     private String player1Name;
     private String player2Name;
 
@@ -40,7 +41,6 @@ public class TennisGame1 implements TennisGame {
     }
 
     private String buildUnderThreeScore() {
-        String[] scoreArray = new String[]{"Love", "Fifteen", "Thirty", "Forty"};
         return scoreArray[player1Score] +
                 '-' +
                 scoreArray[player2Score];
@@ -57,22 +57,9 @@ public class TennisGame1 implements TennisGame {
     }
 
     private String buildEqualScore() {
-        StringBuilder score;
-        switch (player1Score) {
-            case 0:
-                score = new StringBuilder("Love-All");
-                break;
-            case 1:
-                score = new StringBuilder("Fifteen-All");
-                break;
-            case 2:
-                score = new StringBuilder("Thirty-All");
-                break;
-            default:
-                score = new StringBuilder("Deuce");
-                break;
-
+        if (player1Score>=3){
+            return "Deuce";
         }
-        return score.toString();
+        return scoreArray[player1Score] + '-' + "All";
     }
 }
