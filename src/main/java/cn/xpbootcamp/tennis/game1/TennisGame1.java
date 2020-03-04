@@ -40,31 +40,11 @@ public class TennisGame1 implements TennisGame {
     }
 
     private String buildUnderThreeScore() {
-        StringBuilder score = new StringBuilder();
-        int tempScore;
-        for (int i = 1; i < 3; i++) {
-            if (i == 1) tempScore = player1Score;
-            else {
-                score.append("-");
-                tempScore = player2Score;
-            }
-            switch (tempScore) {
-                case 0:
-                    score.append("Love");
-                    break;
-                case 1:
-                    score.append("Fifteen");
-                    break;
-                case 2:
-                    score.append("Thirty");
-                    break;
-                case 3:
-                    score.append("Forty");
-                    break;
-            }
+        String[] scoreArray = new String[]{"Love", "Fifteen", "Thirty", "Forty"};
+        return scoreArray[player1Score] +
+                '-' +
+                scoreArray[player2Score];
         }
-        return score.toString();
-    }
 
     private String buildUpToFourScore() {
         StringBuilder score;
