@@ -7,6 +7,8 @@ public class TennisGame1 implements TennisGame {
     private int player1Score = 0;
     private int player2Score = 0;
     private String[] scoreArray = new String[]{"Love", "Fifteen", "Thirty", "Forty"};
+    private String[] messageArray = new String[]{"Advantage", "Win for"};
+
     private String player1Name;
     private String player2Name;
 
@@ -47,13 +49,10 @@ public class TennisGame1 implements TennisGame {
         }
 
     private String buildUpToFourScore() {
-        StringBuilder score;
         int minusResult = player1Score - player2Score;
-        if (minusResult == 1) score = new StringBuilder("Advantage player1");
-        else if (minusResult == -1) score = new StringBuilder("Advantage player2");
-        else if (minusResult >= 2) score = new StringBuilder("Win for player1");
-        else score = new StringBuilder("Win for player2");
-        return score.toString();
+        String winner = minusResult>0 ? player1Name: player2Name;
+        String message = Math.abs(minusResult) >1? "Win for":"Advantage";
+        return message+ ' ' + winner;
     }
 
     private String buildEqualScore() {
